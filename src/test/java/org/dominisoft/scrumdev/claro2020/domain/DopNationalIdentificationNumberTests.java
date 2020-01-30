@@ -14,15 +14,6 @@ public final class DopNationalIdentificationNumberTests {
 
     public static class ConstructorMessageTests {
 
-        /*
-         * Cedula con letra -> Cedula es inválida
-         * [12345678901] -> Cedula Invalida
-         */
-
-        /*
-         * Cédula Valida -> Informacion del votante
-         */
-
         @Test(expected = IllegalArgumentException.class)
         public void rejects_null_document() {
             new DopNationalIdentificationNumber(null);
