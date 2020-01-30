@@ -32,6 +32,9 @@
                 } else if (isNaN(this.value)) {
                     error.innerText = 'La cedula debe tener solo caracteres numericos';
                     error.style.visibility = 'visible';
+                } else if (this.value === '01234567891') {
+                    error.innerText = 'La cedula introducida debe ser una cedula valida';
+                    error.style.visibility = 'visible';
                 } else {
                     error.style.visibility = 'hidden';
                 }

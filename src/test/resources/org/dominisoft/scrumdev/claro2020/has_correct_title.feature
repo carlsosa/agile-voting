@@ -20,3 +20,7 @@ Feature: Has correct title
     Given I navigate to index.html
     When I type '0123456789a' on 'id-input'
     Then The label 'error-msg' should have text 'La cedula debe tener solo caracteres numericos'
+  Scenario: Rejects when not numeric chars
+    Given I navigate to index.html
+    When I type '01234567891' on 'id-input'
+    Then The label 'error-msg' should have text 'La cedula introducida debe ser una cedula valida'
