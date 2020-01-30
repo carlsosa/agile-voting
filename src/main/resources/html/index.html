@@ -29,6 +29,9 @@
                 if (this.value.length !== 11) {
                     error.innerText = 'La cedula debe tener 11 caracteres';
                     error.style.visibility = 'visible';
+                } else if (isNaN(this.value)) {
+                    error.innerText = 'La cedula debe tener solo caracteres numericos';
+                    error.style.visibility = 'visible';
                 } else {
                     error.style.visibility = 'hidden';
                 }

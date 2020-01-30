@@ -124,7 +124,6 @@ public final class StepDefinitions {
         element.sendKeys(value);
         element.sendKeys(Keys.TAB);
         Thread.sleep(1000);
-
     }
 
     @Then("The input {string} should not be {string}")
