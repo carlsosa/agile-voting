@@ -7,14 +7,17 @@ package org.dominisoft.scrumdev.claro2020.domain;
 import org.dominisoft.scrumdev.claro2020.domain.model.User;
 import org.junit.Test;
 
+import static junit.framework.Assert.assertEquals;
+
 public class CredentialsAdminTest {
 
     @Test(expected = IllegalArgumentException.class)
     public void testUserIllegalArgumentException() {
         new User(null, null);
     }
-    @Test
+    @Test(expected = IllegalArgumentException.class)
     public void testPswdNotWhiteSpace(){
-        User user = new User("g")
+        new User("   ", null);
+
     }
 }

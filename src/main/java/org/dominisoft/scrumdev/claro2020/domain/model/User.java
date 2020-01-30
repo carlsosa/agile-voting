@@ -6,7 +6,7 @@ public class  User {
     public String username;
 
     public User(String psw, String user){
-        if(psw == null || user == null){
+        if(psw == null || user == null || psw.isEmpty() || user.isEmpty()){
             throw new IllegalArgumentException();
         }
         this.password = psw;
