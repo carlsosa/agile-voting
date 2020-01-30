@@ -1,13 +1,15 @@
-// User and password are simple not allow empty state / just one space.
-// If user or password are empyu(Message: Incorrect credentials)
+// + User and password are simple not allow empty state / just one space.
+// + If user or password are empty(Message: Incorrect credentials)
 // If user or password are wrong (Message: Invalid User)
 // Need 2 user admin with valid auth.
 package org.dominisoft.scrumdev.claro2020.domain;
 
 import org.dominisoft.scrumdev.claro2020.domain.model.User;
+import org.dominisoft.scrumdev.claro2020.domain.validators.UserValidator;
 import org.junit.Test;
 
 import static junit.framework.Assert.assertEquals;
+import static junit.framework.Assert.assertFalse;
 
 public class CredentialsAdminTest {
 
@@ -28,4 +30,10 @@ public class CredentialsAdminTest {
     public void username_not_allow_only_whitespace() {
         new User(defaultPassword, "    ");
     }
+
+    @Test
+    public void admin_user_not_valid() {
+        assertFalse( UserValidator.isAdmin(new User(defaultPassword, defaultUsername)));
+    }
+
 }
