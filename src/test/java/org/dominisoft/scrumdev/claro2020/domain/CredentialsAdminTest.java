@@ -11,13 +11,21 @@ import static junit.framework.Assert.assertEquals;
 
 public class CredentialsAdminTest {
 
+    public static String defaultPassword = "P@SSword";
+    public static String defaultUsername = "Anonymous";
+
     @Test(expected = IllegalArgumentException.class)
-    public void testUserIllegalArgumentException() {
+    public void user_not_null_values_IllegalArgumentException() {
         new User(null, null);
     }
-    @Test(expected = IllegalArgumentException.class)
-    public void testPswdNotWhiteSpace(){
-        new User("   ", null);
 
+    @Test(expected = IllegalArgumentException.class)
+    public void password_not_allow_only_whitespace() {
+        new User("   ", defaultUsername);
+    }
+
+    @Test(expected = IllegalArgumentException.class)
+    public void username_not_allow_only_whitespace() {
+        new User(defaultPassword, "    ");
     }
 }
