@@ -1,5 +1,7 @@
 package org.dominisoft.scrumdev.claro2020.domain;
 
+import org.dominisoft.scrumdev.claro2020.domain.exceptions.DocumentInvalidException;
+
 import java.util.List;
 
 /**
@@ -7,7 +9,6 @@ import java.util.List;
  */
 public final class DopNationalIdentificationNumber {
 
-    private final List<String> BANNED = List.of("12345678901");
     private final String value;
 
     /**
@@ -20,7 +21,9 @@ public final class DopNationalIdentificationNumber {
         if (document == null || document.isBlank()) {
             throw new IllegalArgumentException("El Documento es requerido");
         }
-//        BANNED.
+        if ("01234567891".equals(document)) {
+            throw new DocumentInvalidException("El documento es inválido");
+        }
         value = document;
     }
 

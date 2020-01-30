@@ -30,5 +30,10 @@ public final class DopNationalIdentificationNumberTests {
         public void rejects_empty_document() {
             new DopNationalIdentificationNumber("  ");
         }
+
+        @Test(expected = DocumentInvalidException.class)
+        public void rejects_document_in_black_list() {
+            new DopNationalIdentificationNumber("01234567891");
+        }
     }
 }
