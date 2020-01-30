@@ -128,8 +128,14 @@ public final class StepDefinitions {
     }
 
     @Then("The input {string} should not be {string}")
-    public void theInputXShouldNotBeY(String input, String value) throws InterruptedException {
+    public void theInputXShouldNotBeY(String input, String value) {
         WebElement element = driver.findElement(By.id(input));
         Assert.assertEquals(value, element.getAttribute("value"));
+    }
+
+    @Then("The label {string} should have text {string}")
+    public void theLabelXShouldHaveTextY(String label, String text) {
+        WebElement element = driver.findElement(By.id(label));
+        Assert.assertEquals(text, element.getAttribute("innerText"));
     }
 }

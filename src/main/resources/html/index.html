@@ -2,22 +2,38 @@
 
 <html lang="en">
 <head>
-  <meta charset="utf-8">
+    <meta charset="utf-8">
 
-  <title>Agile Voting</title>
-  <meta name="description" content="Agile Voting System">
-  <meta name="author" content="Lorenzo Solano Martinez 2020">
+    <title>Agile Voting</title>
+    <meta name="description" content="Agile Voting System">
+    <meta name="author" content="Lorenzo Solano Martinez 2020">
 
-  <!-- link rel="stylesheet" href="css/styles.css?v=1.0" -->
+    <!-- link rel="stylesheet" href="css/styles.css?v=1.0" -->
 
 </head>
 
 <body>
-  <h1>Agile Voting System</h1>
-  <form action="/init-voting" method="POST">
-  	<label id="id-label" for="id-input">Enter your ID: </label>
-  	<input id="id-input" name="id" type="text" />
-  	<input id="vote-button" name="form-action" type="submit" value="Vote" />
-  </form>
+<h1>Agile Voting System</h1>
+<form action="/init-voting" method="POST">
+    <label id="id-label" for="id-input">Enter your ID: </label>
+    <input id="id-input" name="id" type="text"/>
+    <input id="vote-button" name="form-action" type="submit" value="Vote"/>
+</form>
+<span id="error-msg">El documento ingresado no es valido</span>
+<script type="application/javascript">
+    (() => {
+        document.getElementById('error-msg').style.visibility = 'hidden';
+        document.getElementById('id-input')
+            .addEventListener('change', function () {
+                let error = document.getElementById('error-msg');
+                if (this.value.length !== 11) {
+                    error.innerText = 'La cedula debe tener 11 caracteres';
+                    error.style.visibility = 'visible';
+                } else {
+                    error.style.visibility = 'hidden';
+                }
+            });
+    })();
+</script>
 </body>
 </html>

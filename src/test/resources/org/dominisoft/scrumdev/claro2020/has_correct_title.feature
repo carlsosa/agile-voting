@@ -12,3 +12,7 @@ Feature: Has correct title
     Given I navigate to index.html
     When I type '01234567891' on 'id-input'
     Then The input 'id-input' should not be '01234567891'
+  Scenario: Rejects when length is not 11 characters
+    Given I navigate to index.html
+    When I type '1234' on 'id-input'
+    Then The label 'error-msg' should have text 'La cedula debe tener 11 caracteres'
