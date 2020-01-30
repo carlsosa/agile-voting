@@ -7,6 +7,7 @@ import io.cucumber.java.en.Then;
 import io.cucumber.java.en.When;
 import org.junit.Assert;
 import org.openqa.selenium.By;
+import org.openqa.selenium.Keys;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.firefox.FirefoxDriver;
@@ -117,9 +118,18 @@ public final class StepDefinitions {
         element.click();
     }
 
-    @Then("The input should not be empty")
-    public void theInputShouldNotBeEmpty() {
-        WebElement element = driver.findElement(By.id("id-input"));
-        Assert.assertEquals("", element.getText());
+    @When("I type {string} on {string}")
+    public void iTypeValueOnElement(String value, String el) throws InterruptedException {
+        WebElement element = driver.findElement(By.id(el));
+        element.sendKeys(value);
+        element.sendKeys(Keys.TAB);
+        Thread.sleep(1000);
+
+    }
+
+    @Then("The input {string} should not be {string}")
+    public void theInputXShouldNotBeY(String input, String value) throws InterruptedException {
+        WebElement element = driver.findElement(By.id(input));
+        Assert.assertEquals(value, element.getAttribute("value"));
     }
 }
