@@ -2,8 +2,6 @@ package org.dominisoft.scrumdev.claro2020.domain;
 
 import org.dominisoft.scrumdev.claro2020.domain.exceptions.DocumentInvalidException;
 
-import java.util.List;
-
 /**
  * "Cedula" validator.
  */
@@ -18,13 +16,23 @@ public final class DopNationalIdentificationNumber {
      */
 
     public DopNationalIdentificationNumber(final String document) {
+        validateIfDocEmpty(document);
+        validateIfInvalid("01234567891".equals(document), "El documento es inválido");
+        validateIfInvalid(!document.matches("[0-9]+"), "El documento no debe contener solo numeros");
+        validateIfInvalid(document.length() != 11, "El documento debe tener solo 11 caracteres");
+        value = document;
+    }
+
+    private void validateIfInvalid(boolean val, String s) {
+        if (val) {
+            throw new DocumentInvalidException(s);
+        }
+    }
+
+    private void validateIfDocEmpty(String document) {
         if (document == null || document.isBlank()) {
             throw new IllegalArgumentException("El Documento es requerido");
         }
-        if ("01234567891".equals(document)) {
-            throw new DocumentInvalidException("El documento es inválido");
-        }
-        value = document;
     }
 
     /**
