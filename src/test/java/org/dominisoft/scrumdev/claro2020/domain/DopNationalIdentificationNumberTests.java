@@ -34,6 +34,16 @@ public final class DopNationalIdentificationNumberTests {
         }
 
         @Test(expected = DocumentInvalidException.class)
+        public void rejects_document_with_invalid_characters() {
+            new DopNationalIdentificationNumber("0123456789a");
+        }
+
+        @Test(expected = DocumentInvalidException.class)
+        public void rejects_document_with_invalid_length() {
+            new DopNationalIdentificationNumber("0123456789aaaa");
+        }
+
+        @Test(expected = DocumentInvalidException.class)
         public void rejects_document_in_black_list() {
             new DopNationalIdentificationNumber("01234567891");
         }
