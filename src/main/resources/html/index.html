@@ -12,10 +12,10 @@
 
 </head>
 
-<body> 
-  <h1>Agile Voting System</h1>
-  
-  <form action="/init-voting" method="POST">
+<body>
+<h1>Agile Voting System</h1>
+
+<form action="/init-voting" method="POST">
     <label id="id-label" for="id-input">Enter your ID: </label>
     <input id="id-input" name="id" type="text"/>
     <input id="vote-button" name="form-action" type="submit" value="Vote"/>
@@ -53,39 +53,59 @@
     };
 
     (() => {
+        let hasError = false;
         document.getElementById('error-msg').style.visibility = 'hidden';
-        document.getElementById('id-input')
-            .addEventListener('change', function () {
-                let error = document.getElementById('error-msg');
-                if (!this.value || this.value.length === 0) {
-                    error.innerText = 'El Numero De Cedula es requerido';
-                    error.style.visibility = 'visible';
-                } else if (this.value.length !== 11) {
-                    error.innerText = 'La cedula debe tener 11 caracteres';
-                    error.style.visibility = 'visible';
-                } else if (isNaN(this.value)) {
-                    error.innerText = 'La cedula debe tener solo caracteres numericos';
-                    error.style.visibility = 'visible';
-                } else if (this.value === '01234567891' || validateDocument(this.value)) {
-                    error.innerText = 'La cedula introducida debe ser una cedula valida';
-                    error.style.visibility = 'visible';
-                }  else {
-                    error.style.visibility = 'hidden';
-                }
-            });
+        let idInput = document.getElementById('id-input');
+        let button = document.getElementById('vote-button');
+        button.disabled = true;
+        idInput.addEventListener('keyup', function () {
+            hasError = true;
+            let error = document.getElementById('error-msg');
+            if (!this.value || this.value.length === 0) {
+                button.disabled = true;
+                error.innerText = 'El Numero De Cedula es requerido';
+                error.style.visibility = 'visible';
+            } else if (this.value.length !== 11) {
+                button.disabled = true;
+                error.innerText = 'La cedula debe tener 11 caracteres';
+                error.style.visibility = 'visible';
+            } else if (isNaN(this.value)) {
+                button.disabled = true;
+                error.innerText = 'La cedula debe tener solo caracteres numericos';
+                error.style.visibility = 'visible';
+            } else if (this.value === '01234567891' || validateDocument(this.value)) {
+                button.disabled = true;
+                error.innerText = 'La cedula introducida debe ser una cedula valida';
+                error.style.visibility = 'visible';
+            } else {
+                fetch('/validate-document?document=' + this.value, {method: 'POST'})
+                    .then(r => r.json())
+                    .then(r => {
+                        if (r.error) {
+                            button.disabled = true;
+                            error.innerText = r.error;
+                            error.style.visibility = 'visible';
+                        } else {
+                            button.disabled = false;
+                            hasError = false;
+                            error.style.visibility = 'hidden';
+                        }
+                    });
+            }
+        });
     })();
 </script>
-  
-  <form action="/login-success" method="POST">
-  	<label id="user-label-username" for="id-input">Enter your Username: </label>
-  	<input id="user-input-username" name="username" type="text" />
-  	
-  	<label id="user-label-password" for="id-input">Enter your Password: </label>
-  	<input id="user-input-password" name="password" type="text" />
 
-  	<input id="login-button" name="form-action" type="submit" value="Login" />
-  	<input id="user_label_login_result"  type="input" value="" />
-  </form>
- 
+<form action="/login-success" method="POST">
+    <label id="user-label-username" for="id-input">Enter your Username: </label>
+    <input id="user-input-username" name="username" type="text"/>
+
+    <label id="user-label-password" for="id-input">Enter your Password: </label>
+    <input id="user-input-password" name="password" type="text"/>
+
+    <input id="login-button" name="form-action" type="submit" value="Login"/>
+    <input id="user_label_login_result" type="input" value=""/>
+</form>
+
 </body>
 </html>
