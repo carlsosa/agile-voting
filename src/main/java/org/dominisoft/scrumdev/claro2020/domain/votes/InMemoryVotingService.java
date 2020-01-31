@@ -10,7 +10,7 @@ import org.dominisoft.scrumdev.claro2020.domain.DopNationalIdentificationNumber;
  * @author jose an rodriguez
  */
 public class InMemoryVotingService implements VotingService {
-  List<String> documentThatVoted = List.of("00101044821");
+  List<String> documentThatVoted = List.of("07200140809");
 
   @Override
   public boolean hasVoted(DopNationalIdentificationNumber number) {
