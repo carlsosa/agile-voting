@@ -19,23 +19,56 @@
     <input id="id-input" name="id" type="text"/>
     <input id="vote-button" name="form-action" type="submit" value="Vote"/>
 </form>
-<span id="error-msg">El documento ingresado no es valido</span>
+<span style="color: rgba(245, 24, 39, .9)" id="error-msg">El documento ingresado no es valido</span>
 <script type="application/javascript">
+    const validateDocument = (doc) => {
+        const sDoc = doc.replace(/-/g, '');
+        const fDoc = sDoc.substr(0, sDoc.length - 1);
+        const verifier = sDoc.substr(sDoc.length - 1, 1);
+        let sum = 0;
+        let docIsValid = false;
+        if (doc.length < 11) {
+            return false;
+        }
+        for (let i = 0; i < fDoc.length; i++) {
+            let mod = "";
+            if ((i % 2) === 0) {
+                mod = 1
+            } else {
+                mod = 2
+            }
+            let result = fDoc.substr(i, 1) * mod;
+            if (result > 9) {
+                result = result.toString();
+                let uno = result.substr(0, 1);
+                let dos = result.substr(1, 1);
+                result = eval(uno) + eval(dos);
+            }
+            sum += eval(result.toString());
+        }
+        let docNumber = ((10 - (sum % 10)) % 10).toString();
+        docIsValid = !(docNumber === verifier && fDoc.substr(0, 3) !== "000");
+        return docIsValid;
+    };
+
     (() => {
         document.getElementById('error-msg').style.visibility = 'hidden';
         document.getElementById('id-input')
             .addEventListener('change', function () {
                 let error = document.getElementById('error-msg');
-                if (this.value.length !== 11) {
+                if (!this.value || this.value.length === 0) {
+                    error.innerText = 'El Numero De Cedula es requerido';
+                    error.style.visibility = 'visible';
+                } else if (this.value.length !== 11) {
                     error.innerText = 'La cedula debe tener 11 caracteres';
                     error.style.visibility = 'visible';
                 } else if (isNaN(this.value)) {
                     error.innerText = 'La cedula debe tener solo caracteres numericos';
                     error.style.visibility = 'visible';
-                } else if (this.value === '01234567891') {
+                } else if (this.value === '01234567891' || validateDocument(this.value)) {
                     error.innerText = 'La cedula introducida debe ser una cedula valida';
                     error.style.visibility = 'visible';
-                } else {
+                }  else {
                     error.style.visibility = 'hidden';
                 }
             });

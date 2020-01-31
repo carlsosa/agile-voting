@@ -24,3 +24,7 @@ Feature: Has correct title
     Given I navigate to index.html
     When I type '01234567891' on 'id-input'
     Then The label 'error-msg' should have text 'La cedula introducida debe ser una cedula valida'
+  Scenario: Rejects when not satisfying Luhn's algorithm
+    Given I navigate to index.html
+    When I type '07200140806' on 'id-input'
+    Then The label 'error-msg' should have text 'La cedula introducida debe ser una cedula valida'
