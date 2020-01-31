@@ -94,6 +94,17 @@
             }
         });
     })();
+
+    (() => {
+    	const urlParams = new URLSearchParams(window.location.search);
+		const myParam = urlParams.get('loginError');
+
+		if (myParam) {
+			let error = document.getElementById('error-msg');
+            error.innerText = 'Login invalido';
+            error.style.visibility = 'visible';
+		}
+    })();
 </script>
 
 <form action="/login-success" method="POST">
@@ -106,6 +117,7 @@
     <input id="login-button" name="form-action" type="submit" value="Login"/>
     <input id="user_label_login_result" type="input" value=""/>
 </form>
+
 
 </body>
 </html>

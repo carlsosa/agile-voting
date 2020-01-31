@@ -4,10 +4,12 @@ import io.javalin.Javalin;
 import org.dominisoft.scrumdev.claro2020.domain.DopNationalIdentificationNumber;
 import org.dominisoft.scrumdev.claro2020.domain.model.User;
 import org.dominisoft.scrumdev.claro2020.domain.validators.UserValidator;
+
 import org.dominisoft.scrumdev.claro2020.domain.votes.InMemoryVotingService;
 
 /**
  * Hello world.
+ *
  */
 public final class App {
     /**
@@ -75,11 +77,13 @@ public final class App {
 
         app.post("/login-success", ctx -> {
             User user = new User(ctx.req.getParameter("password"), ctx.req.getParameter("username"));
+    app.post("/login-success", ctx -> {
+      final User user = new User(ctx.req.getParameter("password"), ctx.req.getParameter("username"));
 
             if (UserValidator.isAdmin(user)) {
                 ctx.redirect("/login_result.html");
             } else {
-                ctx.redirect("/index.html");
+                ctx.redirect("/index.html?loginError=true");
             }
 
         });

@@ -1,14 +1,27 @@
 package org.dominisoft.scrumdev.claro2020.domain.exceptions;
 
 /**
- * @author jose an rodriguez
+ * asdfdsafsdf.
+ * @author jose an rodriguez.
  */
 public class DocumentInvalidException extends RuntimeException {
-    public DocumentInvalidException(String message) {
-        super(message);
-    }
+  /**
+   * abc.
+   */
+  private static final long serialVersionUID = 2803970310799508605L;
 
-    public DocumentInvalidException() {
-        super();
-    }
+  /**
+   * asdfsadfsdf.
+   * @param message sdfsadfsa.
+   */
+  public DocumentInvalidException(String message) {
+    super(message);
+  }
+
+  /**
+   * asdfsadfds.
+   */
+  public DocumentInvalidException() {
+    super();
+  }
 }
