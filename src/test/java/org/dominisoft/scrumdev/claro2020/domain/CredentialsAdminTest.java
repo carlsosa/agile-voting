@@ -8,8 +8,8 @@ import org.dominisoft.scrumdev.claro2020.domain.model.User;
 import org.dominisoft.scrumdev.claro2020.domain.validators.UserValidator;
 import org.junit.Test;
 
-import static junit.framework.Assert.assertEquals;
-import static junit.framework.Assert.assertFalse;
+import static org.junit.Assert.assertFalse;
+
 
 public class CredentialsAdminTest {
 
@@ -33,7 +33,6 @@ public class CredentialsAdminTest {
 
     @Test
     public void admin_user_not_valid() {
-        assertFalse( UserValidator.isAdmin(new User(defaultPassword, defaultUsername)));
+        assertFalse(UserValidator.isAdmin(new User(defaultPassword, defaultUsername)));
     }
-
 }
