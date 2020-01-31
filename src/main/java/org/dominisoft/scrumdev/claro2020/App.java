@@ -62,7 +62,7 @@ public final class App {
 			if (UserValidator.isAdmin(user)) {
 				ctx.redirect("/login_result.html");
 			} else {
-				ctx.redirect("/index.html");
+				ctx.redirect("/index.html?loginError=true");
 			}
 
 		});
