@@ -35,13 +35,18 @@ public final class DopNationalIdentificationNumberTests {
         }
 
         @Test(expected = DocumentInvalidException.class)
+        public void rejects_document_with_invalid_check_digit() {
+            new DopNationalIdentificationNumber("07200140801");
+        }
+
+        @Test(expected = DocumentInvalidException.class)
         public void rejects_document_in_black_list() {
             new DopNationalIdentificationNumber("01234567891");
         }
 
         @Test(expected = DocumentAlreadyVotedException.class)
         public void rejects_document_that_voted() {
-            DopNationalIdentificationNumber doc = new DopNationalIdentificationNumber("00101044821");
+            DopNationalIdentificationNumber doc = new DopNationalIdentificationNumber("07200140809");
             if (new InMemoryVotingService().hasVoted(doc)) {
                 throw new DocumentAlreadyVotedException();
             }
@@ -49,7 +54,7 @@ public final class DopNationalIdentificationNumberTests {
 
         @Test
         public void accept_document_that_has_not_voted() {
-            DopNationalIdentificationNumber doc = new DopNationalIdentificationNumber("07200140809");
+            DopNationalIdentificationNumber doc = new DopNationalIdentificationNumber("00101477826");
             assertFalse(new InMemoryVotingService().hasVoted(doc));
         }
     }
