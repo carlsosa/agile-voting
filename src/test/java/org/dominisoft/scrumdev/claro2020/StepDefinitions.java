@@ -1,21 +1,24 @@
 package org.dominisoft.scrumdev.claro2020;
 
-import io.cucumber.java.After;
-import io.cucumber.java.Before;
-import io.cucumber.java.en.Given;
-import io.cucumber.java.en.Then;
-import io.cucumber.java.en.When;
+import static org.junit.Assert.assertEquals;
+
+import java.nio.file.Path;
+
+import org.dominisoft.scrumdev.claro2020.App;
 import org.junit.Assert;
 import org.openqa.selenium.By;
-import org.openqa.selenium.Keys;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.firefox.FirefoxDriver;
 import org.openqa.selenium.firefox.FirefoxOptions;
 
-import java.nio.file.Path;
+import io.cucumber.java.After;
+import io.cucumber.java.Before;
+import io.cucumber.java.en.Given;
+import io.cucumber.java.en.Then;
+import io.cucumber.java.en.When;
 
-import static org.junit.Assert.assertEquals;
+import org.openqa.selenium.Keys;
 
 public final class StepDefinitions {
     private static final String WEBDRIVER_CHROME_DRIVER_PROP_NAME = "webdriver.chrome.driver";
@@ -106,7 +109,7 @@ public final class StepDefinitions {
         driver.get(BASE_URL);
         actualTitle = driver.getTitle();
     }
-
+    
     @Then("The title should be {string}")
     public void the_title_should_be(final String expectedTitle) {
         assertEquals(expectedTitle, actualTitle);
@@ -137,4 +140,38 @@ public final class StepDefinitions {
         WebElement element = driver.findElement(By.id(label));
         Assert.assertEquals(text, element.getAttribute("innerText"));
     }
+    
+
+	@Given("I navigate to index.html and I type username equals to admin and password equals admin")
+	public void i_navigate_to_index_html_and_I_type_username_equals_to_admin_and_password_equals_admin() {
+		driver.get(BASE_URL);
+		driver.findElement(By.id("user-input-username")).sendKeys("admin");
+		driver.findElement(By.id("user-input-password")).sendKeys("admin");
+	}
+
+	@When("The User clicks login button")
+	public void the_User_clicks_login_button() {
+		// Write code here that turns the phrase above into concrete actions
+		driver.findElement(By.id("login-button")).click();
+	}
+
+	@Then("Should display successful message")
+	public void should_display_successful_message() {
+		driver.findElement(By.id("user_label_login_result")).sendKeys("Success.!");
+	}
+
+	@Given("I navigate to index.html and I type wrong admin username or password")
+	public void i_navigate_to_index_html_and_I_type_wrong_admin_username_or_password() {
+		// Write code here that turns the phrase above into concrete actions
+		driver.get(BASE_URL);
+		driver.findElement(By.id("user-input-username")).sendKeys("admin");
+		driver.findElement(By.id("user-input-password")).sendKeys("55565");
+	}
+
+	@Then("Should display Invalid Loggin message")
+	public void should_display_Invalid_Loggin_message() {
+
+		// Write code here that turns the phrase above into concrete actions
+		driver.findElement(By.id("user_label_login_result")).sendKeys("Invalid Login.!");
+	}
 }
